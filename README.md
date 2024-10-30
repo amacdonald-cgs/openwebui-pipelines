@@ -57,7 +57,8 @@ pip install --upgrade pydantic==2.7.4
 - [OpenWebUI Pipelines Documentation](https://github.com/open-webui/pipelines)  
 - [Supabase PostgreSQL with pgvector](https://supabase.com/docs/guides/database/extensions/pgvector)  
 - [OpenAI API Documentation](https://beta.openai.com/docs/)  
-
+- [Mem0 Documentation](https://docs.mem0.ai/overview)
+- [Langchain Documentation](https://python.langchain.com/docs/introduction/)
 ---
 
 ## 🌐 License  
