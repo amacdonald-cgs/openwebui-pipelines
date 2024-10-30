@@ -1,32 +1,46 @@
- # Custom Pipelines for OpenWebUI  
+# Custom Pipelines for OpenWebUI  
 
-Welcome to our collection of **custom OpenWebUI pipelines**! These pipelines are designed to enhance your OpenWebUI instance by integrating advanced logic and external services.
+Welcome to our collection of **custom OpenWebUI pipelines**! These pipelines extend the capabilities of your OpenWebUI instance by integrating advanced logic, external services, and seamless workflows.
 
 ---
 
 ## 🚀 Pipelines Overview  
-OpenWebUI pipelines allow for **modular workflows** to extend the capabilities of any UI client supporting OpenAI API specifications. These pipelines offload computationally intensive tasks, enabling seamless integration of Python libraries and custom logic.  
+OpenWebUI pipelines enable **modular workflows**, enhancing any UI client that supports OpenAI API specifications. These pipelines handle complex tasks efficiently, integrating Python libraries and custom logic for better performance and flexibility.  
 
-This repository includes the following pipelines:  
-1. **Long-Term Memory Filter:** Stores user interactions as vectorized memories in PostgreSQL (pgvector) using OpenAI models.  
-2. **[Additional Pipelines Coming Soon...]**  
+### Available Pipelines  
 
-Each pipeline is tailored to provide better performance, scalability, and flexibility when compared to default filters or functions available in OpenWebUI.  
+1. **[Chat with YouTube Pipeline](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
+   - **Description:**  
+     This pipeline searches for YouTube videos, retrieves transcripts, generates transcript summaries, enables Q&A over transcripts, and performs search operations within video transcripts.
+   - **Features:**  
+     - Search for videos similar to YouTube’s built-in search.  
+     - Fetch and summarize video transcripts.  
+     - Ask questions over video transcripts or search specific moments within them.
+
+2. **[Long-Term Memory Filter Pipeline](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/long-term-memory-filter-pipeline.py)**  
+   - **Description:**  
+     This pipeline stores user interactions as vectorized memories in **PostgreSQL (pgvector)** for long-term retrieval. It uses **OpenAI LLM** to embed and organize messages.
+   - **Features:**  
+     - Embeds messages using OpenAI models.  
+     - Stores vectorized memories in PostgreSQL with pgvector.  
+     - Ideal for chat applications requiring long-term memory and enhanced user interactions.
 
 ---
 
 ## 📦 Installation and Setup  
 
-To use these custom pipelines with your OpenWebUI instance, follow these steps:  
+To add these pipelines to your OpenWebUI instance, follow these steps:
 
-## 🧠 Long-Term Memory Filter Pipeline  
+1. **Copy the GitHub URL** of the pipeline you want to install:  
+   - [Chat with YouTube Pipeline URL](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)  
+   - [Long-Term Memory Filter Pipeline URL](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/long-term-memory-filter-pipeline.py)  
 
-This pipeline processes user messages and stores them in **PostgreSQL (pgvector)** for long-term memory retrieval. It utilizes **OpenAI LLMs** to enhance interactions and employs the `text-embedding-3-small` model for embedding messages.
+2. **Go to Admin Panel -> Settings -> Pipelines** in your OpenWebUI instance.  
+3. **Paste the GitHub URL** in the "Install from GitHub URL" field.  
+4. **Click the Install / Download icon** to complete the installation.  
 
-**How to Use:**  
-1. Add the pipeline to your OpenWebUI instance using the steps above.  
-2. Ensure you have PostgreSQL installed with the `pgvector` extension (we used **Supabase** for our setup).  
-
+---
+ 
 **Troubleshooting Installation Issues:**  
 Some users reported encountering the following error:  
 ```
@@ -47,4 +61,4 @@ pip install --upgrade pydantic==2.7.4
 ---
 
 ## 🌐 License  
-This project is licensed under the **MIT License**.  
+This project is licensed under the **MIT License**.
