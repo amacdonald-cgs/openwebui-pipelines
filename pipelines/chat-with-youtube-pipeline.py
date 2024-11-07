@@ -100,7 +100,7 @@ class Pipeline:
                 MessagesPlaceholder("agent_scratchpad")
             ])
             agent = create_tool_calling_agent(model, tools, prompt)
-            agent_executor = AgentExecutor(agent, tools, verbose=True)
+            agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
             response = agent_executor.invoke({"input": user_message, "chat_history": messages})
             return response["output"]
         except Exception as e:
