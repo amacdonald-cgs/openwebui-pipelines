@@ -5,7 +5,7 @@ date: 2024-10-30
 version: 1.1
 license: MIT
 description: A custom pipeline that performs YouTube video search, retrieves transcripts, generates transcript summaries, conducts Q&A over transcripts, and searches within transcript/video content.
-requirements: pydantic==2.7.4, requests, youtube-search==2.1.2, youtube-transcript-api==0.6.2, pytube==15.0.0, langchain==0.3.3, langchain-openai==0.2.2, langchain-core==0.3.10, langchain-text-splitters==0.3.0
+requirements: pydantic==2.7.4, requests, youtube-search==2.1.2, youtube-transcript-api==0.6.2, pytube==15.0.0, langchain==0.3.3, langchain-community==0.3.2, langchain-openai==0.2.2, langchain-core==0.3.10, langchain-text-splitters==0.3.0
 """
 
 import os
