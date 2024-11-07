@@ -10,7 +10,7 @@ description:
     and the OpenAI `text-embedding-3-small` as the embedding model.
     Adapted from: https://github.com/open-webui/pipelines/blob/main/examples/filters/mem0_memory_filter_pipeline.py
 
-requirements: pydantic==2.7.4, openai, pgvector, psycopg2, mem0ai
+requirements: pydantic==2.7.4, openai, pgvector, mem0ai
 """
 
 # Troubleshooting Note:
