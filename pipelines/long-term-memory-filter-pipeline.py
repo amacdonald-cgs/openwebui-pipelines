@@ -108,7 +108,7 @@ class Pipeline:
         print(f"on_shutdown: {__name__}")
         pass
 
-    async def inlet(self, body: dict, user: Optional[dict] = None) -> dict:
+    async def inlet(self, body: dict, user: Optional[dict] = None):
         try:
             print(f"pipe: {__name__}")
             # Ensure mem0 instance is available
