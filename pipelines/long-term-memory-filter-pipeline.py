@@ -75,8 +75,7 @@ class Pipeline:
                 pipelines=["*"],
                 OPENAI_API_KEY=os.getenv("OPENAI_API_KEY", "")
             )
-            self.test_supabase_connection()
-            self.m = self.init_mem_zero()
+            self.m = None
         except Exception as e:
             print(f"Error initializing Pipeline: {e}")
 
@@ -103,8 +102,8 @@ class Pipeline:
             print(f"Supabase connection error: {e}")
 
     async def on_startup(self):
-        print(f"on_startup: {__name__}")
-        pass
+        self.test_supabase_connection()
+        self.m = self.init_mem_zero()
 
     async def on_shutdown(self):
         print(f"on_shutdown: {__name__}")
