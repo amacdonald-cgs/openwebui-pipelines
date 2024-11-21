@@ -36,6 +36,8 @@ import threading
 import os
 import psycopg2
 
+from utils.pipelines.main import get_last_user_message
+
 class Pipeline:
     class Valves(BaseModel):
         pipelines: List[str] = []
@@ -121,7 +123,8 @@ class Pipeline:
                 body = json.loads(body)
 
             all_messages = body["messages"]
-            last_message = all_messages[-1]["content"]
+            last_message = get_last_user_message(all_messages)
+            print("Latest user message ", last_message)
 
             self.user_messages.append(last_message)
 
