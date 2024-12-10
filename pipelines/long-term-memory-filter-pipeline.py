@@ -29,7 +29,7 @@ requirements: pydantic==2.7.4, openai, pgvector, mem0ai
 
 
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import json
 from mem0 import Memory
 import threading
@@ -47,6 +47,9 @@ class Pipeline:
 
         STORE_CYCLES: int = 5  # Messages count before storing to memory
         MEM_ZERO_USER: str = "user"  # Used internally by mem0
+        DEFINE_NUMBER_OF_MEMORIES_TO_USE: int = Field(
+            default=5, description="Specify how many memory entries you want to use as context."
+        )
 
         # PostgreSQL vector store configuration
         POSTGRESQL_USER: str = ""
@@ -104,7 +107,6 @@ class Pipeline:
     async def on_startup(self):
         self.test_supabase_connection()
         self.m = self.init_mem_zero()
-        pass
 
     async def on_shutdown(self):
         print(f"on_shutdown: {__name__}")
@@ -148,11 +150,20 @@ class Pipeline:
 
             memories = self.m.search(last_message, user_id=user)
 
-            fetched_memory = memories[0]["memory"] if memories else ""
-            if fetched_memory:
-                print("Fetched memory successfully:", fetched_memory)
+            maxMemoriesToJoin = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
 
-            print("Adding memory to the context.")
+            # Check if there are memories and the list is not empty
+            if memories:
+                # Slice the list to get the first 'n' items and join their 'memory' fields
+                fetched_memory = " ".join(memory_item["memory"] for memory_item in memories[:maxMemoriesToJoin] if "memory" in memory_item)
+                
+                if fetched_memory:
+                    print("Fetched memories successfully:", fetched_memory)
+                else:
+                    fetched_memory = ""
+            else:
+                fetched_memory = ""
+
             if fetched_memory:
                 all_messages.insert(0, {
                     "role": "system",
@@ -161,9 +172,6 @@ class Pipeline:
                         + str(fetched_memory)
                     )
                 })
-
-            print("Final message body sent to the LLM:")
-            print(body)
 
             return body
         except Exception as e:
