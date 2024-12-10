@@ -1,5 +1,5 @@
 """
-title: Long Term Memory Filter
+title: Long Term Memory Filter using OpenAI and PostgreSQL
 author: Begench Bekmyradov
 date: 2024-10-30
 version: 1.0
