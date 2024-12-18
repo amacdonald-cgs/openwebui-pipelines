@@ -62,9 +62,9 @@ class Pipeline:
         OLLAMA_EMBEDDER_MODEL: str = "mxbai-embed-large"
 
         # Neo4j configuration
-        NEO4J_URL = "neo4j://host.docker.internal:7687"
-        NEO4J_USER = "neo4j"
-        NEO4J_PASSWORD = "my_password123"
+        NEO4J_URL: str = "neo4j://host.docker.internal:7687"
+        NEO4J_USER: str = "neo4j"
+        NEO4J_PASSWORD: str = "my_password123"
 
     def __init__(self):
         try:
