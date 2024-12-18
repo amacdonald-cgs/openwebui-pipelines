@@ -9,7 +9,7 @@ OpenWebUI pipelines enable **modular workflows**, enhancing any UI client that s
 
 ### Available Pipelines  
 
-1. **[Chat with YouTube Pipeline](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
+1. **[Chat with YouTube Pipeline Using](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
    - **Description:**  
      This pipeline searches for YouTube videos, retrieves transcripts, generates transcript summaries, enables Q&A over transcripts, and performs search operations within video transcripts.
    - **Features:**  
