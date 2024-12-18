@@ -1,6 +1,6 @@
 """
 title: Long Term Memory Filter using OpenAI and PostgreSQL
-author: Begench Bekmyradov
+author: BrainDriveAI
 date: 2024-10-30
 version: 1.0
 license: MIT

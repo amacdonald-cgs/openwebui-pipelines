@@ -1,6 +1,6 @@
 """
 title: Chat with YouTube OpenAI Pipeline
-author: Begench Bekmyradov
+author: BrainDriveAI
 date: 2024-10-30
 version: 1.1
 license: MIT
