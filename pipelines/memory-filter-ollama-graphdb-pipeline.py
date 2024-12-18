@@ -57,14 +57,14 @@ class Pipeline:
         OLLAMA_LLM_MODEL: str = "llama3.1:latest" # This model need to exist in ollama and needs to be tool calling model
         OLLAMA_LLM_TEMPERATURE: float = 0
         OLLAMA_LLM_MAX_TOKENS: int = 8000
-        OLLAMA_LLM_URL: str = "http://192.168.100.90:11434"
+        OLLAMA_LLM_URL: str = "http://127.0.0.1:11434"
 
-        OLLAMA_EMBEDDER_MODEL = "mxbai-embed-large"
+        OLLAMA_EMBEDDER_MODEL: str = "mxbai-embed-large"
 
         # Neo4j configuration
-        NEO4J_URL = "neo4j://host.docker.internal:7687"
-        NEO4J_USER = "neo4j"
-        NEO4J_PASSWORD = "your_neo4j_cluster_password"
+        NEO4J_URL: str = "neo4j://host.docker.internal:7687"
+        NEO4J_USER: str = "neo4j"
+        NEO4J_PASSWORD: str = "my_password123"
 
     def __init__(self):
         try:
