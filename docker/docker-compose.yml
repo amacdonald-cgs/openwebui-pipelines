@@ -1,0 +1,39 @@
+version: "3.8"
+
+volumes:
+  pipelines_storage:
+  neo4j_data:
+  neo4j_plugins:
+
+networks:
+  demo:
+
+services:
+  neo4j:
+    image: neo4j:5.26.0
+    container_name: neo4j-graph-db
+    networks: ['demo']
+    restart: always
+    ports:
+      - 7474:7474
+      - 7687:7687
+    environment:
+      NEO4J_AUTH: neo4j/my_password123
+      NEO4J_PLUGINS: '["apoc"]'
+    volumes:
+      - neo4j_data:/data
+      - neo4j_plugins:/plugins
+
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    container_name: pipelines
+    networks: ['demo']
+    restart: always
+    ports:
+      - 9099:9099
+    environment:
+      PIPELINES_URLS: "https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-ollama-graphdb-pipeline.py"
+    volumes:
+      - pipelines_storage:/app/pipelines
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
