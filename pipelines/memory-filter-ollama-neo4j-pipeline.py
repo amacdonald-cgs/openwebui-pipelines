@@ -9,13 +9,13 @@ description:
     It integrates with:
       - Neo4j GraphDB as a local graph database for memory context organization and management.
       - Ollama LLM for language model capabilities, including embedding and contextual generation, utilizing the 
-        `llama3.1:latest` model for tool-calling support.
+        `llama3.3:70b` model for tool-calling support.
       - Ollama's embedding models
     The filter periodically consolidates user messages into memory based on a configurable cycle and retrieves relevant 
     memories to enhance conversational context.
     Adapted from: https://github.com/open-webui/pipelines/blob/main/examples/filters/mem0_memory_filter_pipeline.py
 
-requirements: pydantic==2.7.4, mem0ai, rank-bm25, neo4j
+requirements: pydantic==2.7.4, mem0ai, rank-bm25==0.2.2, neo4j==5.23.1, langchain-community==0.3.1
 """
 
 # Troubleshooting Note:
@@ -54,12 +54,12 @@ class Pipeline:
 
         # LLM configuration (Ollama)
          # Default values for the mem0 language model
-        OLLAMA_LLM_MODEL: str = "llama3.1:latest" # This model need to exist in ollama and needs to be tool calling model
+        OLLAMA_LLM_MODEL: str = "llama3.3:70b" # This model need to exist in ollama and needs to be tool calling model - it needs to be llama3.1:405b or llama3.3:70b
         OLLAMA_LLM_TEMPERATURE: float = 0
         OLLAMA_LLM_MAX_TOKENS: int = 8000
         OLLAMA_LLM_URL: str = "http://127.0.0.1:11434"
 
-        OLLAMA_EMBEDDER_MODEL: str = "mxbai-embed-large"
+        OLLAMA_EMBEDDER_MODEL: str = "mxbai-embed-large" # Make sure to pull this embedding model in ollama
 
         # Neo4j configuration
         NEO4J_URL: str = "neo4j://host.docker.internal:7687"
@@ -87,11 +87,14 @@ class Pipeline:
         print(f"on_shutdown: {__name__}")
         pass
 
+    async def on_valves_updated(self):
+        self.m = self.check_or_create_mem_zero()
+        print(f"Valves are updated")
+        pass
+
     async def inlet(self, body: dict, user: Optional[dict] = None):
         try:
             print(f"pipe: {__name__}")
-            # Ensure mem0 instance is available
-            # self.m = self.check_or_create_mem_zero()
 
             user = self.valves.MEM_ZERO_USER
             store_cycles = self.valves.STORE_CYCLES
@@ -113,36 +116,56 @@ class Pipeline:
                 print("Processing the following text into memory:")
                 print(message_text)
 
-                # self.thread.start()
                 self.user_messages.clear()
 
             memories = self.m.search(last_message, user_id=user)
 
-            print(f"Memories: {memories}")
-
-            memory_list = memories.get('memories', [])
+            # Extract the 'results' list for memories and 'relations' for connections
+            memory_list = memories.get('results', [])
+            print(f"Memory list: {memory_list}")
+            relations_list = memories.get('relations', [])
 
             maxMemoriesToJoin = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
 
-            # Check if there are memories and the list is not empty
+            # Initialize variables to hold fetched memories and relationships
+            fetched_memory = ""
+            fetched_relations = ""
+
+            # Process memories
             if memory_list:
-                # Slice the list to get the first 'n' items and join their 'memory' fields
-                fetched_memory = " ".join(memory_item["memory"] for memory_item in memory_list[:maxMemoriesToJoin] if "memory" in memory_item)
-                
-                if fetched_memory:
+                # Filter and slice items containing the 'memory' key
+                filtered_memories = [item["memory"] for item in memory_list if "memory" in item]
+                if filtered_memories:
+                    # Slice and join the first 'n' memory items
+                    fetched_memory = " ".join(filtered_memories[:maxMemoriesToJoin])
                     print("Fetched memories successfully:", fetched_memory)
                 else:
-                    fetched_memory = ""
+                    print("No valid memories found in the results.")
             else:
-                fetched_memory = ""
+                print("Memory list is empty.")
 
-            if fetched_memory:
+            # Process relationships
+            if relations_list:
+                # Convert relationships into a readable string format
+                fetched_relations = ". ".join(
+                    f"{relation['source']} {relation['relationship']} {relation['target']}"
+                    for relation in relations_list if all(key in relation for key in ['source', 'relationship', 'target'])
+                )
+                if fetched_relations:
+                    print("Fetched relationships successfully:", fetched_relations)
+
+            # Combine fetched memories and relationships into a single context
+            if fetched_memory or fetched_relations:
+                combined_context = " ".join(filter(None, [
+                    "This is your inner voice talking.",
+                    f"You remember this about the person you're chatting with: {fetched_memory}" if fetched_memory else None,
+                    f"You also recall these connections: {fetched_relations}" if fetched_relations else None,
+                ]))
+                
+                # Prepend the combined context to the messages
                 all_messages.insert(0, {
                     "role": "system",
-                    "content": (
-                        "This is your inner voice talking. You remember this about the person you're chatting with: "
-                        + str(fetched_memory)
-                    )
+                    "content": combined_context
                 })
 
             return body
