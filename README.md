@@ -13,7 +13,7 @@ OpenWebUI pipelines enable **flexible workflows**, empowering users to handle co
 #### 1. **Chat with YouTube Pipeline**  
 
 ##### OpenAI Version  
-- **[Chat with YouTube (OpenAI)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
+- **[Chat with YouTube (OpenAI)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-openai-pipeline.py)**  
   - **Description:**  
     Searches YouTube videos, retrieves transcripts, generates summaries, and enables Q&A over video transcripts. Uses OpenAI's GPT for processing.  
   - **Features:**  
@@ -22,7 +22,7 @@ OpenWebUI pipelines enable **flexible workflows**, empowering users to handle co
     - Integrates with OpenAI for natural language understanding.  
 
 ##### Ollama Version  
-- **[Chat with YouTube (Ollama)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-ollama-pipeline.py)**  
+- **[Chat with YouTube (Ollama)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-ollama-pipeline.py)**  
   - **Description:**  
     Similar to the OpenAI version, but uses Ollama's local LLMs for transcript processing.  
   - **Features:**  
@@ -67,7 +67,7 @@ OpenWebUI pipelines enable **flexible workflows**, empowering users to handle co
 ### Installing Pipelines  
 
 1. **Copy the GitHub URL** of the pipeline you want to install:  
-   - [Chat with YouTube (OpenAI)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)  
+   - [Chat with YouTube (OpenAI)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-openai-pipeline.py)  
    - [Chat with YouTube (Ollama)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-ollama-pipeline.py)  
    - [Memory Pipeline (OpenAI + PostgreSQL)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-postgresql-pipeline.py)  
    - [Memory Pipeline (OpenAI + Neo4j)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-neo4j-pipeline.py)  
