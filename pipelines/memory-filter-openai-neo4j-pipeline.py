@@ -48,7 +48,7 @@ class Pipeline:
         OPENAI_API_KEY: str = ""
 
         STORE_CYCLES: int = 3  # Messages count before storing to memory
-        MEM_ZERO_USER: str = "beck"  # Used internally by mem0
+        MEM_ZERO_USER: str = "your_name"  # Used internally by mem0
         DEFINE_NUMBER_OF_MEMORIES_TO_USE: int = Field(
             default=3, description="Specify how many memory entries you want to use as context."
         )
