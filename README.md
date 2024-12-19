@@ -1,65 +1,121 @@
-# Custom Pipelines for OpenWebUI  
+# BrainDriveAI's Custom Pipelines for OpenWebUI
 
-Welcome to our collection of **custom OpenWebUI pipelines**! These pipelines extend the capabilities of your OpenWebUI instance by integrating advanced logic, external services, and seamless workflows.
+Welcome to our collection of **custom OpenWebUI pipelines**! These pipelines enhance the capabilities of your OpenWebUI instance by integrating advanced logic, external services, and modular workflows.  
 
 ---
 
 ## 🚀 Pipelines Overview  
-OpenWebUI pipelines enable **modular workflows**, enhancing any UI client that supports OpenAI API specifications. These pipelines handle complex tasks efficiently, integrating Python libraries and custom logic for better performance and flexibility.  
+
+OpenWebUI pipelines enable **flexible workflows**, empowering users to handle complex tasks efficiently. With support for various providers (e.g., OpenAI, Ollama, PostgreSQL, Neo4j), these pipelines deliver robust memory management, transcript-based chat, and more.  
 
 ### Available Pipelines  
 
-1. **[Chat with YouTube Pipeline Using](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
-   - **Description:**  
-     This pipeline searches for YouTube videos, retrieves transcripts, generates transcript summaries, enables Q&A over transcripts, and performs search operations within video transcripts.
-   - **Features:**  
-     - Search for videos similar to YouTube’s built-in search.  
-     - Fetch and summarize video transcripts.  
-     - Ask questions over video transcripts or search specific moments within them.
+#### 1. **Chat with YouTube Pipeline**  
 
-2. **[Long-Term Memory Filter Pipeline](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/long-term-memory-filter-pipeline.py)**  
-   - **Description:**  
-     This pipeline stores user interactions as vectorized memories in **PostgreSQL (pgvector)** for long-term retrieval. It uses **OpenAI LLM** to embed and organize messages.
-   - **Features:**  
-     - Embeds messages using OpenAI models.  
-     - Stores vectorized memories in PostgreSQL with pgvector.  
-     - Ideal for chat applications requiring long-term memory and enhanced user interactions.
+##### OpenAI Version  
+- **[Chat with YouTube (OpenAI)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)**  
+  - **Description:**  
+    Searches YouTube videos, retrieves transcripts, generates summaries, and enables Q&A over video transcripts. Uses OpenAI's GPT for processing.  
+  - **Features:**  
+    - Video transcript retrieval and summarization.  
+    - Video content search and Q&A.  
+    - Integrates with OpenAI for natural language understanding.  
+
+##### Ollama Version  
+- **[Chat with YouTube (Ollama)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-ollama-pipeline.py)**  
+  - **Description:**  
+    Similar to the OpenAI version, but uses Ollama's local LLMs for transcript processing.  
+  - **Features:**  
+    - Local transcript processing with Ollama.  
+    - No external API calls, ensuring privacy and cost efficiency.  
+
+---
+
+#### 2. **Memory Pipelines**  
+
+##### OpenAI + PostgreSQL (Supabase)  
+- **[Memory Pipeline (OpenAI + PostgreSQL)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-postgresql-pipeline.py)**  
+  - **Description:**  
+    A long-term memory pipeline that uses OpenAI for embeddings and Supabase PostgreSQL (with pgvector) for memory storage. Ideal for scalable cloud setups.  
+  - **Features:**  
+    - Stores and retrieves vectorized memories.  
+    - Embedding support via OpenAI models.  
+    - Memory storage in Supabase PostgreSQL.  
+
+##### OpenAI + Neo4j (Local/Docker)  
+- **[Memory Pipeline (OpenAI + Neo4j)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-neo4j-pipeline.py)**  
+  - **Description:**  
+    A local-first memory solution using OpenAI for embeddings and Neo4j for graph-based memory storage. Runs entirely on your device via Docker.  
+  - **Features:**  
+    - Local vectorized memory storage using Neo4j.  
+    - OpenAI-based embeddings for message processing.  
+    - Full data persistence on local devices.  
+
+##### Ollama + Neo4j (Local/Docker)  
+- **[Memory Pipeline (Ollama + Neo4j)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-ollama-neo4j-pipeline.py)**  
+  - **Description:**  
+    Similar to the OpenAI + Neo4j pipeline but uses Ollama’s local LLMs for embedding. Fully local solution with no external dependencies.  
+  - **Features:**  
+    - Local embeddings using Ollama.  
+    - Neo4j for graph-based memory storage.  
+    - Privacy-first and cost-effective.  
 
 ---
 
 ## 📦 Installation and Setup  
 
-To add these pipelines to your OpenWebUI instance, follow these steps:
+### Installing Pipelines  
 
 1. **Copy the GitHub URL** of the pipeline you want to install:  
-   - [Chat with YouTube Pipeline URL](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)  
-   - [Long-Term Memory Filter Pipeline URL](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/long-term-memory-filter-pipeline.py)  
+   - [Chat with YouTube (OpenAI)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-pipeline.py)  
+   - [Chat with YouTube (Ollama)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/chat-with-youtube-ollama-pipeline.py)  
+   - [Memory Pipeline (OpenAI + PostgreSQL)](https://github.com/Digital-Brain-Builders/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-postgresql-pipeline.py)  
+   - [Memory Pipeline (OpenAI + Neo4j)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-openai-neo4j-pipeline.py)  
+   - [Memory Pipeline (Ollama + Neo4j)](https://github.com/BrainDriveAI/openwebui-pipelines/blob/main/pipelines/memory-filter-ollama-neo4j-pipeline.py)  
 
 2. **Go to Admin Panel -> Settings -> Pipelines** in your OpenWebUI instance.  
 3. **Paste the GitHub URL** in the "Install from GitHub URL" field.  
 4. **Click the Install / Download icon** to complete the installation.  
 
+### Setting Up the Dockerized Neo4j Memory Pipelines  
+
+For local Neo4j-based memory pipelines, use the provided `docker-compose.yml` to set up Neo4j and OpenWebUI with pre-installed pipelines.  
+
+#### Steps:  
+1. Copy the `docker-compose.yml` file to your system.  
+2. Run the following command in the directory containing the file:  
+   ```bash
+   docker-compose up -d
+   ```  
+3. Access Neo4j at [http://localhost:7474](http://localhost:7474) (username: `neo4j`, password: `my_password123`).  
+4. Your OpenWebUI instance will have the pre-installed memory pipeline ready to use.  
+
 ---
- 
-**Troubleshooting Installation Issues:**  
-Some users reported encountering the following error:  
+
+## Troubleshooting  
+
+If you encounter issues like:  
 ```
 FieldValidatorDecoratorInfo.__init__() got an unexpected keyword argument 'json_schema_input_type'
 ```  
-To fix this, upgrade `pydantic` to version 2.7.4 inside the Docker container:  
-```bash  
-pip install --upgrade pydantic==2.7.4  
-```
+Upgrade `pydantic` to version 2.7.4 inside the Docker container:  
+```bash
+pip install --upgrade pydantic==2.7.4
+```  
 
 ---
 
 ## 📚 References  
+
 - [OpenWebUI Pipelines Documentation](https://github.com/open-webui/pipelines)  
 - [Supabase PostgreSQL with pgvector](https://supabase.com/docs/guides/database/extensions/pgvector)  
+- [Neo4j Graph Database](https://neo4j.com/)  
 - [OpenAI API Documentation](https://beta.openai.com/docs/)  
-- [Mem0 Documentation](https://docs.mem0.ai/overview)
-- [Langchain Documentation](https://python.langchain.com/docs/introduction/)
+- [Ollama Documentation](https://www.ollama.com/)  
+- [Mem0 Documentation](https://docs.mem0.ai/overview)  
+
 ---
 
 ## 🌐 License  
-This project is licensed under the **MIT License**.
+
+This project is licensed under the **MIT License**.  
