@@ -38,6 +38,7 @@ import os
 
 from utils.pipelines.main import get_last_user_message
 
+os.environ["OPENAI_API_KEY"] = ""
 
 class Pipeline:
     class Valves(BaseModel):
