@@ -1,6 +1,6 @@
 """
 title: Long Term Memory Filter using OpenAI and PostgreSQL
-author: BrainDriveAI
+author: BrainDrive.ai
 date: 2024-10-30
 version: 1.0
 license: MIT
@@ -150,12 +150,12 @@ class Pipeline:
 
             memories = self.m.search(last_message, user_id=user)
 
-            maxMemoriesToJoin = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
+            max_memories_to_join = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
 
             # Check if there are memories and the list is not empty
             if memories:
                 # Slice the list to get the first 'n' items and join their 'memory' fields
-                fetched_memory = " ".join(memory_item["memory"] for memory_item in memories[:maxMemoriesToJoin] if "memory" in memory_item)
+                fetched_memory = " ".join(memory_item["memory"] for memory_item in memories[:max_memories_to_join] if "memory" in memory_item)
                 
                 if fetched_memory:
                     print("Fetched memories successfully:", fetched_memory)

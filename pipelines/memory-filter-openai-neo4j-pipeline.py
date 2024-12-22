@@ -1,7 +1,7 @@
 """
 title: Long Term Memory Filter using OpenAI and Neo4j GraphDB
-author: BrainDriveAI
-date: 2024-10-30
+author: BrainDrive.ai
+date: 2024-12-20
 version: 1.0
 license: MIT
 description:
@@ -54,7 +54,7 @@ class Pipeline:
         )
 
         # LLM configuration (OpenAI)
-        OPENAI_LLM_MODEL: str = "gpt-4o" # needs to be the most intelligent model
+        OPENAI_LLM_MODEL: str = "gpt-4o"  # needs to be the most intelligent model
         OPENAI_LLM_TEMPERATURE: float = 0
         OPENAI_LLM_MAX_TOKENS: int = 2000
 
@@ -63,7 +63,7 @@ class Pipeline:
         # Neo4j configuration
         NEO4J_URL: str = "neo4j://host.docker.internal:7687"
         NEO4J_USER: str = "neo4j"
-        NEO4J_PASSWORD: str = "my_password123" # replace with your password
+        NEO4J_PASSWORD: str = "my_password123"  # replace with your password
 
     def __init__(self):
         try:
@@ -125,7 +125,7 @@ class Pipeline:
             print(f"Memory list: {memory_list}")
             relations_list = memories.get('relations', [])
 
-            maxMemoriesToJoin = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
+            max_memories_to_join = self.valves.DEFINE_NUMBER_OF_MEMORIES_TO_USE
 
             # Initialize variables to hold fetched memories and relationships
             fetched_memory = ""
@@ -137,7 +137,7 @@ class Pipeline:
                 filtered_memories = [item["memory"] for item in memory_list if "memory" in item]
                 if filtered_memories:
                     # Slice and join the first 'n' memory items
-                    fetched_memory = " ".join(filtered_memories[:maxMemoriesToJoin])
+                    fetched_memory = " ".join(filtered_memories[:max_memories_to_join])
                     print("Fetched memories successfully:", fetched_memory)
                 else:
                     print("No valid memories found in the results.")
@@ -180,7 +180,6 @@ class Pipeline:
             self.m.add(message_text, user_id=user)
         except Exception as e:
             print(f"Error adding memory: {e}")
-            
 
     def check_or_create_mem_zero(self):
         """Verify or reinitialize mem0 instance."""
