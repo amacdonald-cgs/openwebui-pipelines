@@ -1,6 +1,6 @@
 """
 title: Long Term Memory Filter using OpenAI and PostgreSQL
-author: BrainDrive.ai
+author: cicero.app
 date: 2024-10-30
 version: 1.0
 license: MIT
@@ -52,11 +52,11 @@ class Pipeline:
         )
 
         # PostgreSQL vector store configuration
-        POSTGRESQL_USER: str = ""
-        POSTGRESQL_DB_NAME: str = ""
-        POSTGRESQL_HOST: str = ""
-        POSTGRESQL_PORT: str = ""
-        POSTGRESQL_PWD: str = ""
+        POSTGRESQL_USER: str = "postgres"
+        POSTGRESQL_DB_NAME: str = "postgres"
+        POSTGRESQL_HOST: str = "host.docker.internal"
+        POSTGRESQL_PORT: str = "5433"
+        POSTGRESQL_PWD: str = "password"
         VECTOR_STORE_EMBEDDING_DIMS: int = 1536  # Must match the embedder model's dimensions
 
         # LLM configuration (OpenAI)
