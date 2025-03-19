@@ -105,8 +105,8 @@ class Pipeline:
             print(f"Supabase connection error: {e}")
 
     async def on_startup(self):
-        # self.test_supabase_connection()
-        # self.m = self.init_mem_zero()
+        self.test_supabase_connection()
+        self.m = self.init_mem_zero()
 
     async def on_shutdown(self):
         print(f"on_shutdown: {__name__}")
